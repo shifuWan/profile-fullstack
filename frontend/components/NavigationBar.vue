@@ -1,11 +1,17 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const isOpen = ref<boolean>(false);
+
+const toggleMenu = () => {
+  isOpen.value = !isOpen.value;
+};
+</script>
 
 <template>
-  <header class="bg-white shadow h-16">
+  <header class="bg-white h-16 fixed w-full" >
     <div class="flex justify-between items-center h-full px-4 container mx-auto">
       <h1 class="font-itim text-2xl font-bold">My Website</h1>
-      <nav>
-        <ul class="flex gap-4">
+      <nav :class="['absolute md:static top-16 left-0 right-0 bg-white md:bg-transparent md:shadow-none z-10 overflow-hidden h-0 md:h-full transition-all duration-300 ease-in-out', isOpen ? 'h-auto' : '']">
+        <ul class="flex gap-4 flex-col md:flex-row md:items-center md:gap-8 p-4 md:p-0 h-full">
           <li>
             <NuxtLink to="/" class="text-blue-500 font-itim text-xl hover:underline"
               >Work</NuxtLink
@@ -28,7 +34,7 @@
           </li>
         </ul>
       </nav>
-      <Icon name="mdi:hamburger-menu" class="text-2xl md:hidden" />
+      <Icon name="mdi:hamburger-menu" class="text-2xl md:hidden" @click="toggleMenu"/>
     </div>
   </header>
 </template>

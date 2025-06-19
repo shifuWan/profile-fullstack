@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
+:root {
+    interpolate-size: allow-keywords;
+}
+
 
 @theme {
     --font-sans: 'Roboto', sans-serif;
