@@ -14,10 +14,13 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
+        $exists = User::where('username', 'admin')->exists();
 
-        User::factory()->create([
-            'username' => 'admin',
-            'email' => 'test@example.com',
-        ]);
+        if (!$exists) {
+            User::create([
+                'username' => 'admin',
+                'email' => 'admin@example.com',
+            ]);
+        }
     }
 }
