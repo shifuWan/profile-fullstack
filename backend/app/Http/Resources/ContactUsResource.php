@@ -24,7 +24,7 @@ class ContactUsResource extends JsonResource
             "subject" => $this->subject,
             "message" => $this->message,
             "is_read" => $this->is_read,
-            "submitted_at" => $this->created_at->jsonSerialize(),
+            "submitted_at" => $this->created_at->diffForHumans(),
         ];
     }
 }
