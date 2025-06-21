@@ -1,14 +1,20 @@
 declare namespace API {
   namespace Common {
     interface PaginatingCommonParams {
-        size: number;
-        page: number;
-        total: string;
+        current_page: number;
+        from: number;
+        last_page: string;
+        links: [];
+        path: string;
+        per_page: number;
+        to: number;
+        total: number;
     }
 
-    interface PaginatingQueryRecord<T = unknown> extends PaginatingCommonParams {
+    interface PaginatingQueryRecord<T = unknown> {
         message: string;
         data: T[];
+        meta: PaginatingCommonParams;
     }
 
     interface QueryRecord<T = unknown> {
@@ -16,7 +22,7 @@ declare namespace API {
         data: T;
     }
 
-    type CommonSearchParams = Pick<PaginatingCommonParams, 'size' | 'page'>;
+    type CommonSearchParams = Pick<PaginatingCommonParams, 'per_page' | 'current_page'>;
   }
 
 
