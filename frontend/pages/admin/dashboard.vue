@@ -54,12 +54,12 @@ async function getContactUsData(page: number = 1) {
     <h1 class="text-2xl font-bold mb-4">Admin Dashboard</h1>
     <p>Welcome to the admin dashboard. Here you can manage your application.</p>
     <button
-      class="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+      class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:cursor-pointer"
       @click="getContactUsData"
     >
       Refresh Contact Us Data
     </button>
-    <UTable :data="items" :columns="columns" :loading="isLoading"  class="max-w-screen w-full">
+    <UTable :data="items" :columns="columns" :loading="isLoading">
         <template #name-cell="{ row }">
             <span class="font-semibold text-black">{{ row.original.name }}</span>
         </template>
