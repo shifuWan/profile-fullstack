@@ -31,9 +31,6 @@ async function getContactUsData() {
   try {
     const { data } = await $api<API.Contacts.ContactList>("/contacts", {
       method: "GET",
-      params: {
-        page: 2
-      }
     });
 
     items.value = data || [];
@@ -54,7 +51,7 @@ async function getContactUsData() {
       class="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
       @click="getContactUsData"
     >
-      Fetch Contact Us Data
+      Refresh Contact Us Data
     </button>
     <UTable :data="items" :columns="columns" :loading="isLoading"  class="max-w-screen w-full">
         <template #name-cell="{ row }">
