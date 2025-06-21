@@ -6,8 +6,11 @@ definePageMeta({
   middleware: "auth",
 });
 
+const table = useTemplateRef('table')
+
 const { $api } = useNuxtApp();
 const isLoading = ref<boolean>(false);
+const pagination = ref<API.Common.PaginatingCommonParams>()
 const items = ref<API.Contacts.Contact[]>([]);
 const columns: TableColumn<API.Contacts.Contact>[] = [
   {
@@ -26,14 +29,19 @@ onBeforeMount(() => {
   getContactUsData();
 });
 
-async function getContactUsData() {
+async function getContactUsData(page: number = 1) {
   isLoading.value = true;
   try {
-    const { data } = await $api<API.Contacts.ContactList>("/contacts", {
+    const { data, meta } = await $api<API.Contacts.ContactList>("/contacts", {
       method: "GET",
+      params: {
+        page: page,
+        per_page: 10,
+      },
     });
 
     items.value = data || [];
+    pagination.value = meta;
   } catch (error) {
     console.error("Error fetching contact us data:", error);
   } finally {
@@ -53,7 +61,7 @@ async function getContactUsData() {
     >
       Refresh Contact Us Data
     </button>
-    <UTable :data="items" :columns="columns" :loading="isLoading"  class="max-w-screen w-full">
+    <UTable ref="table" :data="items" :columns="columns" :loading="isLoading"  class="max-w-screen w-full">
         <template #name-cell="{ row }">
             <span class="font-semibold text-black">{{ row.original.name }}</span>
         </template>
@@ -67,5 +75,16 @@ async function getContactUsData() {
             <p class="text-black font-semibold">{{ row.original.submitted_at }}</p>
         </template>
     </UTable>
+
+    <div class="flex justify-center border-t border-default pt-4">
+      <UPagination
+          :default-page="pagination?.current_page || 1"
+          :items-per-page="pagination?.per_page"
+          :total="pagination?.total"
+          @update:page="args => {
+            getContactUsData(args)
+          }"
+      />
+    </div>
   </main>
 </template>
