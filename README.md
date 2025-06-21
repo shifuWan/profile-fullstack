@@ -1,4 +1,4 @@
-# Profile Simple
+# Profile Super Simple
 ## Installation
 
 Clone the repository
