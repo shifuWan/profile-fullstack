@@ -6,8 +6,6 @@ definePageMeta({
   middleware: "auth",
 });
 
-const table = useTemplateRef('table')
-
 const { $api } = useNuxtApp();
 const isLoading = ref<boolean>(false);
 const pagination = ref<API.Common.PaginatingCommonParams>()
@@ -61,12 +59,12 @@ async function getContactUsData(page: number = 1) {
     >
       Refresh Contact Us Data
     </button>
-    <UTable ref="table" :data="items" :columns="columns" :loading="isLoading"  class="max-w-screen w-full">
+    <UTable :data="items" :columns="columns" :loading="isLoading"  class="max-w-screen w-full">
         <template #name-cell="{ row }">
             <span class="font-semibold text-black">{{ row.original.name }}</span>
         </template>
         <template #content-cell="{ row }">
-            <p class="overflow-hidden text-ellipsis max-w-2xl">
+            <p>
                 <span class="text-black font-semibold"> {{ row.original.subject }} </span>
                 <span> - {{ row.original.message }} </span>
             </p>
